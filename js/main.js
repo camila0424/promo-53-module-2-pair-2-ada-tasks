@@ -19,18 +19,32 @@ const tasks = [
 ];
 
 //FUNCIONES
+
 for (const task of tasks) {
   // pintar la tarea en la lista
-  taskList.innerHTML += `<li><input class="checkBox" type="checkbox" name="checkList"/>${task.name}</li>`
- 
+  taskList.innerHTML += `<li><input id="${task.id}" value="${task.completed}" type="checkbox" class="checkBox" name="checkList"/>${task.name}</li>`
+ }
+const checkBoxes = document.querySelectorAll('.checkBox');
+
+function handleClick (ev) {
   
-}
-const checkBox = document.querySelector('.checkBox');
+  const isCompleted = ev.currentTarget.checked; // valor booleano de check
+
+  const actualTask = ev.currentTarget.parentNode;// muestra el actual li
+
+  if (isCompleted === true) {
+    actualTask.classList.add('tachado');
+  } else {
+    actualTask.classList.remove('tachado');
+  };
+
+};
+
 
 //EVENTOS
-checkBox.addEventListener('click'() => {
-  
-})
+checkBoxes.forEach(checkBox => {
+  checkBox.addEventListener('click', handleClick);
+});
 
 
 //LO QUE EJECUTA LA PÁGINA
