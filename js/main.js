@@ -7,7 +7,7 @@ const agregarBtn = document.querySelector ('.js-btn-add');
 const inputTaskAdd = document.querySelector('.js-text-task-add');
 
 // DATOS
-const tasks = [
+/* let tasks = [
   { name: "Recoger setas en el campo", completed: true, id: 1 },
   { name: "Comprar pilas", completed: true, id: 2 },
   { name: "Poner una lavadora de blancos", completed: true, id: 3 },
@@ -16,14 +16,19 @@ const tasks = [
     completed: false,
     id: 4,
   },
-];
+]; */
+
+const GITHUB_USER = "nelicah";
+const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
+
+let tasks = [];
 
 //FUNCIONES
 
-for (const task of tasks) {
+/* for (const task of tasks) {
   // pintar la tarea en la lista
   taskList.innerHTML += `<li><input id="${task.id}" value="${task.completed}" type="checkbox" class="checkBox" name="checkList"/>${task.name}</li>`
- }
+ } */
 const checkBoxes = document.querySelectorAll('.checkBox');
 
 function handleClick (ev) {
@@ -40,7 +45,24 @@ function handleClick (ev) {
 
 };
 
+function getUser(){
+fetch(SERVER_URL)
+.then((response) => response.json())
+.then((data) => {
 
+  tasks = data.results;
+  console.log(data);
+  for (const task of tasks) {
+  // pintar la tarea en la lista
+  taskList.innerHTML += `<li><input id="${task.id}" value="${task.completed}" type="checkbox" class="checkBox" name="checkList"/>${task.name}</li>`
+  
+ }
+})
+
+//Completa el código;
+//Guarda la respuesta obtenida en la variable para el listado de tareas: `tasks`
+}
+getUser();
 //EVENTOS
 checkBoxes.forEach(checkBox => {
   checkBox.addEventListener('click', handleClick);
