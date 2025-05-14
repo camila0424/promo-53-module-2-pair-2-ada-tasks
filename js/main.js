@@ -59,6 +59,15 @@ function getUser() {
       console.log("se va a producir el evento");
     });
   console.log("se ha producido el fetch");
+
+  const renderTasksList = tasks.length;
+  console.log(renderTasksList);
+
+  const mensageBox = document.querySelector(".js-mensageBox");
+  const renderResults = (mensageBox) => {
+    mensageBox.innerHTML = `Tienes ${renderTasksList} tareas. Y completadas y Z por realizar.`;
+  };
+  renderResults(mensageBox);
 }
 getUser();
 
