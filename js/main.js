@@ -56,18 +56,20 @@ function getUser() {
         checkBox.addEventListener("click", handleClick);
       });
 
+      const totalTasksList = tasks.length;
+      const renderTaskCompleted = tasks.completed; // 16/05;
+      const renderTaskToDo = tasks.completed;
+
+      const mensageBox = document.querySelector(".js-mensageBox");
+      const renderResults = (mensageBox) => {
+        mensageBox.innerHTML = `Tienes ${totalTasksList} tareas. ${renderTaskCompleted} completadas y ${renderTaskToDo} por realizar.`;
+      };
+      renderResults(mensageBox);
+      console.log(renderTasksList);
+
       console.log("se va a producir el evento");
     });
   console.log("se ha producido el fetch");
-
-  const renderTasksList = tasks.length;
-  console.log(renderTasksList);
-
-  const mensageBox = document.querySelector(".js-mensageBox");
-  const renderResults = (mensageBox) => {
-    mensageBox.innerHTML = `Tienes ${renderTasksList} tareas. Y completadas y Z por realizar.`;
-  };
-  renderResults(mensageBox);
 }
 getUser();
 
