@@ -22,6 +22,7 @@ const GITHUB_USER = "nelicah";
 const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
 
 let tasks = [];
+let numCompleted = 0;
 
 //FUNCIONES
 
@@ -56,33 +57,39 @@ function getUser() {
         checkBox.addEventListener("click", handleClick);
       });
 
+      const tasksCompleted = tasks.filter(
+        (eachTask) => eachTask.completed === true
+      );
+
       const totalTasksList = tasks.length;
-      const renderTaskCompleted = tasks.completed; // 16/05;
-      const renderTaskToDo = tasks.completed;
+      numCompleted = tasksCompleted.length;
+      const renderTaskToDo = totalTasksList - numCompleted;
 
       const mensageBox = document.querySelector(".js-mensageBox");
       const renderResults = (mensageBox) => {
-        mensageBox.innerHTML = `Tienes ${totalTasksList} tareas. ${renderTaskCompleted} completadas y ${renderTaskToDo} por realizar.`;
+        mensageBox.innerHTML = `Tienes ${totalTasksList} tareas. ${numCompleted} completadas y ${renderTaskToDo} por realizar.`;
       };
       renderResults(mensageBox);
-      console.log(renderTasksList);
 
       console.log("se va a producir el evento");
     });
   console.log("se ha producido el fetch");
-}
-getUser();
 
-function handleClick(ev) {
-  const isCompleted = ev.currentTarget.checked; // valor booleano de check
+  function handleClick(ev) {
+    const isCompleted = ev.currentTarget.checked; // valor booleano de check
 
-  const actualTask = ev.currentTarget.parentNode; // muestra el actual li
+    const actualTask = ev.currentTarget.parentNode; // muestra el actual li
 
-  if (isCompleted === true) {
-    actualTask.classList.add("tachado");
-  } else {
-    actualTask.classList.remove("tachado");
+    if (isCompleted === true) {
+      actualTask.classList.add("tachado");
+      numCompleted++;
+    } else {
+      actualTask.classList.remove("tachado");
+      numCompleted--;
+    }
+    console.log(numCompleted);
   }
 }
+getUser();
 
 //LO QUE EJECUTA LA PÁGINA
